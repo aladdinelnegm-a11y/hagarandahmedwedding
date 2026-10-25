@@ -235,6 +235,12 @@ body{background:#241e1b}
 #invitation.cinema-enter .cinema-intro-title{animation:cinemaIntroTitle 2.1s ease-out both}
 @keyframes cinemaIntroTitle{0%,10%{opacity:0;transform:translateY(16px) scale(.96)}30%,65%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-12px) scale(1.04)}}
 @media(prefers-reduced-motion:reduce){#invitation.cinema-enter>.scene:first-child,#invitation.cinema-enter>.scene:first-child:before,#invitation.cinema-enter .cinema-intro-title{animation:none!important;clip-path:none!important;opacity:0!important}}
+
+/* Elegant, accessible wedding action controls */
+.details .button{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;cursor:pointer;text-decoration:none}
+.details button.button{font-family:inherit}
+.details .share-feedback{min-height:1.2em;margin:12px auto 0;font-size:13px;letter-spacing:.02em;color:#786045}
+@media(max-width:480px){.details .button{width:min(100%,285px);box-sizing:border-box;margin:7px auto;display:flex}}
 </style>
 </head>
 <body><div class="cinema-progress" id="cinemaProgress" hidden aria-hidden="true"></div><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
@@ -245,13 +251,26 @@ body{background:#241e1b}
 <section class="scene fade"><img loading="lazy" src="scene-3.webp" alt="Our love story, from childhood to forever"></section>
 <section class="love-story fade"><div class="eyebrow">A LOVE WRITTEN IN THE STARS</div><h2>Our Love Story</h2><div class="story-line"></div><p>Every beautiful story has a beginning. Ours leads to forever.</p><p>Two hearts, one promise, a lifetime of love.</p><div class="story-line"></div><div class="eyebrow">HAGAR &amp; AHMED</div></section>
 <section class="scene fade"><img loading="lazy" src="scene-4.webp" alt="The Details — click here"><button class="hotspot" id="detailsButton" aria-label="Show wedding details"></button></section>
-<section id="wedding-details" class="details fade"><div class="couple-title">Hagar &amp; Ahmed</div><h2>Save the Date</h2><p>Thursday, November 19, 2026</p><div class="divider">✦</div><p>6:00 PM</p><p>The Citadel of Saladin<br>Cairo, Egypt</p><div class="countdown" id="countdown" aria-label="Countdown to the wedding"></div><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Citadel+of+Saladin+Cairo">GET DIRECTIONS</a><a class="button" id="calendarLink" href="#" download="Hagar-and-Ahmed-Wedding.ics">ADD TO CALENDAR</a></section>
+<section id="wedding-details" class="details fade"><div class="couple-title">Hagar &amp; Ahmed</div><h2>Save the Date</h2><p>Thursday, November 19, 2026</p><div class="divider">✦</div><p>6:00 PM</p><p>The Citadel of Saladin<br>Cairo, Egypt</p><div class="countdown" id="countdown" aria-label="Countdown to the wedding"></div><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Citadel+of+Saladin+Cairo">GET DIRECTIONS</a><a class="button" id="calendarLink" href="#" download="Hagar-and-Ahmed-Wedding.ics">ADD TO CALENDAR</a><button class="button" id="shareInvitation" type="button">SHARE INVITATION ↗</button><p class="share-feedback" id="shareFeedback" role="status" aria-live="polite"></p></section>
 <section class="scene fade"><img loading="lazy" src="scene-5.webp" alt="Wedding date November 19, 2026 at 6 PM, The Citadel of Saladin Cairo"></section>
 <section class="scene fade video-scene" id="weddingVideoSection" aria-label="Romantic wedding video"><video id="weddingVideo" muted autoplay loop playsinline preload="none" aria-label="Romantic silent wedding video"></video></section><section class="scene fade final-scene"><img loading="lazy" src="scene-6.webp" alt="Hagar and Ahmed — forever begins here"><div class="final-message"><div class="forever">And so, our forever begins…</div><div class="signature">Hagar &amp; Ahmed — November 19, 2026</div></div></section>
 </div></main>
 <button class="envelope-toggle" id="envelopeToggle" type="button" hidden aria-label="Close the invitation and return to envelope">✉ Close Envelope</button><audio id="song" src="music.mp3" loop preload="none"></audio><button class="music" id="musicButton" hidden aria-label="Pause music" title="Toggle music">♫</button>
 <script>
 
+
+const shareInvitationButton=document.getElementById('shareInvitation');
+const shareFeedback=document.getElementById('shareFeedback');
+shareInvitationButton.addEventListener('click',async()=>{
+ const url='https://hagarandahmedwedding.pages.dev';
+ const data={title:'Hagar & Ahmed — Wedding Invitation',text:'Join us on November 19, 2026 at 6:00 PM at The Citadel of Saladin, Cairo.',url};
+ try{
+  if(navigator.share){await navigator.share(data);shareFeedback.textContent='';return}
+  if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(url);shareFeedback.textContent='Invitation link copied!';return}
+  const field=document.createElement('textarea');field.value=url;field.style.position='fixed';field.style.opacity='0';document.body.appendChild(field);field.select();
+  const copied=document.execCommand('copy');field.remove();shareFeedback.textContent=copied?'Invitation link copied!':'Copy this link: '+url;
+ }catch(err){if(err&&err.name==='AbortError')return;shareFeedback.textContent='Share this link: '+url}
+});
 function setupCalendar(){
  const start='20261119T160000Z',end='20261119T200000Z';
  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Hagar Ahmed//Wedding Invitation//EN','BEGIN:VEVENT','UID:hagar-ahmed-20261119@wedding','DTSTAMP:20261025T000000Z','DTSTART:'+start,'DTEND:'+end,'SUMMARY:Hagar & Ahmed Wedding','LOCATION:The Citadel of Saladin\\, Cairo\\, Egypt','DESCRIPTION:Wedding celebration at 6:00 PM Cairo time','END:VEVENT','END:VCALENDAR'].join('\r\n');
