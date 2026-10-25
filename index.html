@@ -81,7 +81,7 @@
 @media(max-width:600px){.invitation-petals i{opacity:.8}}
 </style>
 </head>
-<body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><div class="invitation-petals" id="invitationPetals" aria-hidden="true"></div><main class="wrap">
+<body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
 <section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><button id="open" aria-label="Tap envelope to open invitation"></button></section>
 <div id="invitation" class="hidden">
 <section class="scene reveal"><img src="scene-2.webp" alt="We're getting married: Hagar and Ahmed, The Citadel of Saladin, Cairo, November 19 2026 at 6 PM"></section>
@@ -95,26 +95,6 @@
 <audio id="song" src="music.mp3" loop preload="none"></audio><button class="music" id="musicButton" hidden aria-label="Pause music" title="Toggle music">♫</button>
 <script>
 
-function startInvitationPetals(){
- const layer=document.getElementById('invitationPetals');
- if(layer.classList.contains('active')||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
- const shades=['#e4b74e','#f9de93','#c89430','#fff0b8','#e7b4ac','#f6d7cb','#c9a267','#f5b7c7','#fce1e6','#d69d4e'];
- const count=window.innerWidth<600?75:115;
- for(let i=0;i<count;i++){
-  const el=document.createElement('i'),petal=i%3===0;
-  el.style.setProperty('--x',Math.random()*100+'%');
-  el.style.setProperty('--w',(petal?8:4)+Math.random()*7+'px');
-  el.style.setProperty('--h',(petal?12:7)+Math.random()*9+'px');
-  el.style.setProperty('--tone',shades[i%shades.length]);
-  el.style.setProperty('--radius',petal?'75% 0 75% 0':'1px');
-  el.style.setProperty('--speed',(8+Math.random()*9)+'s');
-  el.style.setProperty('--delay',(-Math.random()*16)+'s');
-  el.style.setProperty('--drift',((Math.random()-.5)*270)+'px');
-  el.style.setProperty('--spin',(540+Math.random()*900)+'deg');
-  layer.appendChild(el);
- }
- layer.classList.add('active');
-}
 function setupCalendar(){
  const start='20261119T160000Z',end='20261119T200000Z';
  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Hagar Ahmed//Wedding Invitation//EN','BEGIN:VEVENT','UID:hagar-ahmed-20261119@wedding','DTSTAMP:20261025T000000Z','DTSTART:'+start,'DTEND:'+end,'SUMMARY:Hagar & Ahmed Wedding','LOCATION:The Citadel of Saladin\\, Cairo\\, Egypt','DESCRIPTION:Wedding celebration at 6:00 PM Cairo time','END:VEVENT','END:VCALENDAR'].join('\\r\\n');
@@ -183,7 +163,7 @@ function celebrateOpening(){
 }
 const cover=document.getElementById('cover'),inv=document.getElementById('invitation'),song=document.getElementById('song'),music=document.getElementById('musicButton');
 function setMusic(){music.textContent=song.paused?'♪':'♫';music.setAttribute('aria-label',song.paused?'Play music':'Pause music')}
-document.getElementById('open').addEventListener('click',async()=>{inv.classList.remove('hidden');cover.classList.add('opening');celebrateOpening();startInvitationPetals();music.hidden=false;try{await song.play()}catch(e){}setMusic();setTimeout(()=>{cover.remove();window.scrollTo({top:0,behavior:'instant'});observe()},850)},{once:true});
+document.getElementById('open').addEventListener('click',async()=>{inv.classList.remove('hidden');cover.classList.add('opening');celebrateOpening();music.hidden=false;try{await song.play()}catch(e){}setMusic();setTimeout(()=>{cover.remove();window.scrollTo({top:0,behavior:'instant'});observe()},850)},{once:true});
 music.addEventListener('click',async()=>{if(song.paused){try{await song.play()}catch(e){}}else song.pause();setMusic()});
 document.getElementById('detailsButton').addEventListener('click',()=>document.getElementById('wedding-details').scrollIntoView({behavior:'smooth'}));
 function observe(){const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.fade').forEach(el=>io.observe(el))}
