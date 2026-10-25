@@ -241,10 +241,27 @@ body{background:#241e1b}
 .details button.button{font-family:inherit}
 .details .share-feedback{min-height:1.2em;margin:12px auto 0;font-size:13px;letter-spacing:.02em;color:#786045}
 @media(max-width:480px){.details .button{width:min(100%,285px);box-sizing:border-box;margin:7px auto;display:flex}}
+
+/* Golden Cinematic Reveal — polished movie-title moment on every envelope opening */
+.cinematic-title-card{position:absolute;z-index:5;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;pointer-events:none;opacity:0;background:radial-gradient(ellipse at center,#22150e40 0%,#1b100a8c 78%);text-align:center}
+.cinematic-title-card .cinematic-kicker{font:11px Georgia,serif;letter-spacing:.35em;color:#f6e3bf;text-transform:uppercase}
+.cinematic-title-card .cinematic-names{font:italic clamp(43px,9vw,76px)/1.05 'Cormorant Garamond',Georgia,serif;color:#fff5dd;text-shadow:0 3px 18px #120a07a6,0 0 28px #e6b65c70}
+.cinematic-title-card .cinematic-date{font:12px Georgia,serif;letter-spacing:.25em;color:#f4dfb9}
+.cinematic-title-card .cinematic-rule{height:1px;width:0;background:linear-gradient(90deg,transparent,#f7d58e,transparent)}
+.cover.opening .cinematic-title-card{animation:cinematicTitleCard 2s ease-in-out both}
+.cover.opening .cinematic-names{animation:cinematicNames 2s cubic-bezier(.16,.7,.25,1) both}
+.cover.opening .cinematic-rule{animation:cinematicRule 1.55s .25s ease both}
+.cover.opening .cinematic-kicker,.cover.opening .cinematic-date{animation:cinematicSupporting 2s ease both}
+.cover.opening .opening-caption{display:none}
+@keyframes cinematicTitleCard{0%,12%{opacity:0}34%,78%{opacity:1}100%{opacity:0}}
+@keyframes cinematicNames{0%,18%{opacity:0;transform:translateY(24px) scale(.92);letter-spacing:.09em}43%,78%{opacity:1;transform:translateY(0) scale(1);letter-spacing:normal}100%{opacity:0;transform:translateY(-12px) scale(1.05)}}
+@keyframes cinematicRule{0%,15%{width:0;opacity:0}45%,80%{width:min(210px,58%);opacity:1}100%{width:0;opacity:0}}
+@keyframes cinematicSupporting{0%,22%{opacity:0;transform:translateY(9px)}43%,78%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.cover.opening .cinematic-title-card,.cover.opening .cinematic-names,.cover.opening .cinematic-rule,.cover.opening .cinematic-kicker,.cover.opening .cinematic-date{animation:none!important}}
 </style>
 </head>
 <body><div class="cinema-progress" id="cinemaProgress" hidden aria-hidden="true"></div><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
-<section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><div class="envelope-card" aria-hidden="true">Hagar &amp; Ahmed<br>19 · 11 · 2026</div><div class="envelope-door envelope-door-left" aria-hidden="true"></div><div class="envelope-door envelope-door-right" aria-hidden="true"></div><div class="seal-sparkle" aria-hidden="true">✦</div><div class="opening-halo" aria-hidden="true"></div><div class="opening-glint" aria-hidden="true"></div><div class="opening-caption" aria-hidden="true">Our forever begins here</div><button id="open" aria-label="Tap envelope to open invitation"></button></section>
+<section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><div class="envelope-card" aria-hidden="true">Hagar &amp; Ahmed<br>19 · 11 · 2026</div><div class="envelope-door envelope-door-left" aria-hidden="true"></div><div class="envelope-door envelope-door-right" aria-hidden="true"></div><div class="seal-sparkle" aria-hidden="true">✦</div><div class="opening-halo" aria-hidden="true"></div><div class="opening-glint" aria-hidden="true"></div><div class="opening-caption" aria-hidden="true">Our forever begins here</div><div class="cinematic-title-card" aria-hidden="true"><div class="cinematic-kicker">Together, forever</div><div class="cinematic-rule"></div><div class="cinematic-names">Hagar &amp; Ahmed</div><div class="cinematic-date">19 · 11 · 2026</div></div><button id="open" aria-label="Tap envelope to open invitation"></button></section>
 <div id="invitation" class="hidden">
 <section class="scene reveal"><div class="cinema-intro-title" aria-hidden="true">A beautiful beginning...</div><img src="scene-2.webp" alt="We're getting married: Hagar and Ahmed, The Citadel of Saladin, Cairo, November 19 2026 at 6 PM"></section>
 <section class="quran fade"><h2>IN THE NAME OF ALLAH</h2><div class="verse" lang="ar">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ ﴾</div><p>“And He placed between you affection and mercy.”</p><small>SURAH AR-RUM · 30:21</small></section>
