@@ -110,6 +110,24 @@
 .final-scene.visible .forever{animation:closingGlow 4s ease-in-out infinite alternate}
 @keyframes closingGlow{from{text-shadow:0 2px 9px #26170c,0 0 7px #fff7}to{text-shadow:0 2px 9px #26170c,0 0 23px #fff,0 0 34px #e5c88e}}
 @media(prefers-reduced-motion:reduce){.cover.opening .envelope-flap,.cover.opening .envelope-card,.cover.opening,.love-story.visible h2,.couple-title:after,.final-scene.visible .forever{animation:none!important}.final-scene .final-message{opacity:1;transform:none}}
+
+/* Final polish: refined opening, seamless chapters, clear touch targets */
+body{background:#241e1b}
+.wrap{position:relative}
+#invitation{overflow:hidden}
+#invitation>.scene{margin:0}
+#invitation>.scene img{vertical-align:middle}
+.cover .envelope-flap{top:31%;height:23%;left:14%;width:72%;background:linear-gradient(160deg,#f6e7d5e8,#c8a98b9c 70%,#ad87685c);clip-path:polygon(0 0,100% 0,50% 88%)}
+.cover .envelope-card{top:38%;height:34%;left:21%;width:58%;font-size:clamp(19px,4.8vw,30px);box-shadow:0 6px 18px #25181045}
+.cover.opening .envelope-flap{animation-duration:1.2s}
+.cover.opening .envelope-card{animation-duration:1.45s}
+.love-story{border-top:1px solid #dfc8ab;border-bottom:1px solid #dfc8ab}
+.love-story:before,.love-story:after{content:'✧';position:absolute;color:#c09a62;font-size:28px;opacity:.65}
+.love-story:before{top:19px;left:22px}.love-story:after{bottom:19px;right:22px}
+.details .button{min-height:48px;align-content:center}
+.final-scene .final-message{background:linear-gradient(transparent,#1e140f65);padding:26px 10px 15px;left:0;right:0;bottom:0}
+.video-scene.available{background:#f5e9da}
+@media(max-width:420px){.details{padding:45px 14px 55px}.details .button{font-size:13px;padding:13px 14px;margin:12px 3px 0}.countdown{gap:10px}.countdown div{min-width:55px}}
 </style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
@@ -118,7 +136,8 @@
 <section class="scene reveal"><img src="scene-2.webp" alt="We're getting married: Hagar and Ahmed, The Citadel of Saladin, Cairo, November 19 2026 at 6 PM"></section>
 <section class="quran fade"><h2>IN THE NAME OF ALLAH</h2><div class="verse" lang="ar">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ ﴾</div><p>“And He placed between you affection and mercy.”</p><small>SURAH AR-RUM · 30:21</small></section>
 <section class="scene fade"><img loading="lazy" src="scene-3.webp" alt="Our love story, from childhood to forever"></section>
-<section class="love-story fade"><div class="eyebrow">A LOVE WRITTEN IN THE STARS</div><h2>Our Love Story</h2><div class="story-line"></div><p>Every beautiful story has a beginning. Ours leads to forever.</p><p>Two hearts, one promise, a lifetime of love.</p><div class="story-line"></div><div class="eyebrow">HAGAR &amp; AHMED</div></section>\n<section class="scene fade"><img loading="lazy" src="scene-4.webp" alt="The Details — click here"><button class="hotspot" id="detailsButton" aria-label="Show wedding details"></button></section>
+<section class="love-story fade"><div class="eyebrow">A LOVE WRITTEN IN THE STARS</div><h2>Our Love Story</h2><div class="story-line"></div><p>Every beautiful story has a beginning. Ours leads to forever.</p><p>Two hearts, one promise, a lifetime of love.</p><div class="story-line"></div><div class="eyebrow">HAGAR &amp; AHMED</div></section>
+<section class="scene fade"><img loading="lazy" src="scene-4.webp" alt="The Details — click here"><button class="hotspot" id="detailsButton" aria-label="Show wedding details"></button></section>
 <section id="wedding-details" class="details fade"><div class="couple-title">Hagar &amp; Ahmed</div><h2>Save the Date</h2><p>Thursday, November 19, 2026</p><div class="divider">✦</div><p>6:00 PM</p><p>The Citadel of Saladin<br>Cairo, Egypt</p><div class="countdown" id="countdown" aria-label="Countdown to the wedding"></div><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Citadel+of+Saladin+Cairo">GET DIRECTIONS</a><a class="button" id="calendarLink" href="#" download="Hagar-and-Ahmed-Wedding.ics">ADD TO CALENDAR</a></section>
 <section class="scene fade"><img loading="lazy" src="scene-5.webp" alt="Wedding date November 19, 2026 at 6 PM, The Citadel of Saladin Cairo"></section>
 <section class="scene fade video-scene" id="weddingVideoSection" aria-label="Romantic wedding video"><video id="weddingVideo" muted autoplay loop playsinline preload="none" aria-label="Romantic silent wedding video"></video></section><section class="scene fade final-scene"><img loading="lazy" src="scene-6.webp" alt="Hagar and Ahmed — forever begins here"><div class="final-message"><div class="forever">And so, our forever begins…</div><div class="signature">Hagar &amp; Ahmed — November 19, 2026</div></div></section>
@@ -128,12 +147,12 @@
 
 function setupCalendar(){
  const start='20261119T160000Z',end='20261119T200000Z';
- const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Hagar Ahmed//Wedding Invitation//EN','BEGIN:VEVENT','UID:hagar-ahmed-20261119@wedding','DTSTAMP:20261025T000000Z','DTSTART:'+start,'DTEND:'+end,'SUMMARY:Hagar & Ahmed Wedding','LOCATION:The Citadel of Saladin\\, Cairo\\, Egypt','DESCRIPTION:Wedding celebration at 6:00 PM Cairo time','END:VEVENT','END:VCALENDAR'].join('\\r\\n');
+ const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Hagar Ahmed//Wedding Invitation//EN','BEGIN:VEVENT','UID:hagar-ahmed-20261119@wedding','DTSTAMP:20261025T000000Z','DTSTART:'+start,'DTEND:'+end,'SUMMARY:Hagar & Ahmed Wedding','LOCATION:The Citadel of Saladin\\, Cairo\\, Egypt','DESCRIPTION:Wedding celebration at 6:00 PM Cairo time','END:VEVENT','END:VCALENDAR'].join('\r\n');
  document.getElementById('calendarLink').href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
 }
 function setupWeddingVideo(){
  const section=document.getElementById('weddingVideoSection'),video=document.getElementById('weddingVideo');
- video.addEventListener('loadedmetadata',()=>{section.classList.add('available');section.classList.add('visible');video.play().catch(()=>{});},{once:true});
+ video.addEventListener('loadedmetadata',()=>{section.classList.add('available');section.classList.add('visible');const io=new IntersectionObserver(entries=>{if(entries[0].isIntersecting)video.play().catch(()=>{});else video.pause()},{threshold:.15});io.observe(section);},{once:true});
  video.addEventListener('error',()=>{section.classList.remove('available');video.removeAttribute('src');});
  video.src='wedding-video.mp4';
 }
