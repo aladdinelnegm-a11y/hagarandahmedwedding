@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f4e6d5"><meta name="description" content="Hagar & Ahmed invite you to celebrate their wedding on November 19, 2026 in Cairo.">
-<meta property="og:title" content="Hagar & Ahmed | Wedding Invitation"><meta property="og:description" content="November 19, 2026 · 6:00 PM · The Citadel of Saladin, Cairo"><meta property="og:image" content="/assets/scene-1.webp">
+<meta property="og:title" content="Hagar & Ahmed | Wedding Invitation"><meta property="og:description" content="November 19, 2026 · 6:00 PM · The Citadel of Saladin, Cairo"><meta property="og:image" content="/scene-1.webp">
 <title>Hagar & Ahmed — Wedding Invitation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
 <style>
@@ -11,17 +11,17 @@
 </style>
 </head>
 <body><main class="wrap">
-<section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="assets/scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><button id="open" aria-label="Tap envelope to open invitation"></button></section>
+<section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><button id="open" aria-label="Tap envelope to open invitation"></button></section>
 <div id="invitation" class="hidden">
-<section class="scene reveal"><img src="assets/scene-2.webp" alt="We're getting married: Hagar and Ahmed, The Citadel of Saladin, Cairo, November 19 2026 at 6 PM"></section>
-<section class="quran fade"><h2>IN THE NAME OF ALLAH</h2><div class="verse" lang="ar">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ﴾</div><p>“And He placed between you affection and mercy.”</p><small>SURAH AR-RUM · 30:21</small></section>
-<section class="scene fade"><img loading="lazy" src="assets/scene-3.webp" alt="Our love story, from childhood to forever"></section>
-<section class="scene fade"><img loading="lazy" src="assets/scene-4.webp" alt="The Details — click here"><button class="hotspot" id="detailsButton" aria-label="Show wedding details"></button></section>
+<section class="scene reveal"><img src="scene-2.webp" alt="We're getting married: Hagar and Ahmed, The Citadel of Saladin, Cairo, November 19 2026 at 6 PM"></section>
+<section class="quran fade"><h2>IN THE NAME OF ALLAH</h2><div class="verse" lang="ar">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ ﴾</div><p>“And He placed between you affection and mercy.”</p><small>SURAH AR-RUM · 30:21</small></section>
+<section class="scene fade"><img loading="lazy" src="scene-3.webp" alt="Our love story, from childhood to forever"></section>
+<section class="scene fade"><img loading="lazy" src="scene-4.webp" alt="The Details — click here"><button class="hotspot" id="detailsButton" aria-label="Show wedding details"></button></section>
 <section id="wedding-details" class="details fade"><h2>Save the Date</h2><p>Thursday, November 19, 2026</p><div class="divider">✦</div><p>6:00 PM</p><p>The Citadel of Saladin<br>Cairo, Egypt</p><div class="countdown" id="countdown" aria-label="Countdown to the wedding"></div><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Citadel+of+Saladin+Cairo">GET DIRECTIONS</a></section>
-<section class="scene fade"><img loading="lazy" src="assets/scene-5.webp" alt="Wedding date November 19, 2026 at 6 PM, The Citadel of Saladin Cairo"></section>
-<section class="scene fade"><img loading="lazy" src="assets/scene-6.webp" alt="Hagar and Ahmed — forever begins here"></section>
+<section class="scene fade"><img loading="lazy" src="scene-5.webp" alt="Wedding date November 19, 2026 at 6 PM, The Citadel of Saladin Cairo"></section>
+<section class="scene fade"><img loading="lazy" src="scene-6.webp" alt="Hagar and Ahmed — forever begins here"></section>
 </div></main>
-<audio id="song" src="assets/music.mp3" loop preload="none"></audio><button class="music" id="musicButton" hidden aria-label="Pause music" title="Toggle music">♫</button>
+<audio id="song" src="music.mp3" loop preload="none"></audio><button class="music" id="musicButton" hidden aria-label="Pause music" title="Toggle music">♫</button>
 <script>
 const cover=document.getElementById('cover'),inv=document.getElementById('invitation'),song=document.getElementById('song'),music=document.getElementById('musicButton');
 function setMusic(){music.textContent=song.paused?'♪':'♫';music.setAttribute('aria-label',song.paused?'Play music':'Pause music')}
