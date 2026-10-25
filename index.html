@@ -185,10 +185,27 @@ body{background:#241e1b}
 @keyframes minimalEnvelopeOpen{0%{transform:scale(1);filter:brightness(1);opacity:1}65%{transform:scale(1.035);filter:brightness(1.07);opacity:1}100%{transform:scale(1.065);filter:brightness(1.03);opacity:0}}
 @keyframes minimalCoverFade{from{opacity:1}to{opacity:0}}
 @media(prefers-reduced-motion:reduce){.cover.opening>img{animation:none!important}.cover.opening{opacity:0}}
+
+/* Signature cinematic opening — original envelope artwork, gold seal pulse, light sweep */
+.cover{isolation:isolate}
+.cover .opening-halo{position:absolute;z-index:3;left:50%;top:49%;width:92px;height:92px;border:1px solid #f6dfa7;border-radius:50%;box-shadow:0 0 0 5px #d8ad6330,0 0 28px #f2d29a80,inset 0 0 17px #f8e7c48c;transform:translate(-50%,-50%) scale(.45);opacity:0;pointer-events:none}
+.cover .opening-glint{position:absolute;z-index:3;inset:-30%;background:linear-gradient(110deg,transparent 34%,#fff9d600 42%,#fff5dba6 49%,#fff9d600 56%,transparent 65%);transform:translateX(-125%) rotate(-10deg);opacity:0;pointer-events:none;mix-blend-mode:screen}
+.cover .opening-caption{position:absolute;z-index:3;left:0;right:0;top:65%;text-align:center;color:#fff4dc;font:italic clamp(27px,6vw,43px)/1.15 'Cormorant Garamond',Georgia,serif;text-shadow:0 2px 12px #21140fc7;letter-spacing:.035em;opacity:0;transform:translateY(14px);pointer-events:none}
+.cover.opening .opening-halo{animation:signatureHalo 1.4s cubic-bezier(.18,.65,.3,1) both}
+.cover.opening .opening-glint{animation:signatureSweep 1.35s .1s ease-in-out both}
+.cover.opening .opening-caption{animation:signatureCaption 1.45s .3s ease both}
+.cover.opening>img{animation:signatureImage 1.9s cubic-bezier(.18,.7,.22,1) forwards!important}
+.cover.opening{animation:signatureCoverExit .55s 1.5s ease forwards!important}
+@keyframes signatureHalo{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}20%{opacity:.9}65%{opacity:.9}100%{opacity:0;transform:translate(-50%,-50%) scale(5.3)}}
+@keyframes signatureSweep{0%{opacity:0;transform:translateX(-125%) rotate(-10deg)}20%{opacity:.95}75%{opacity:.8}100%{opacity:0;transform:translateX(125%) rotate(-10deg)}}
+@keyframes signatureCaption{0%,15%{opacity:0;transform:translateY(14px)}40%,72%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-10px)}}
+@keyframes signatureImage{0%{transform:scale(1);filter:brightness(1) saturate(1);opacity:1}48%{transform:scale(1.055);filter:brightness(1.12) saturate(1.08);opacity:1}100%{transform:scale(1.11);filter:brightness(1.15) blur(3px);opacity:.3}}
+@keyframes signatureCoverExit{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){.cover.opening .opening-halo,.cover.opening .opening-glint,.cover.opening .opening-caption{display:none!important}.cover.opening>img{animation:none!important}.cover.opening{animation:signatureCoverExit .2s ease forwards!important}}
 </style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
-<section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><div class="envelope-card" aria-hidden="true">Hagar &amp; Ahmed<br>19 · 11 · 2026</div><div class="envelope-door envelope-door-left" aria-hidden="true"></div><div class="envelope-door envelope-door-right" aria-hidden="true"></div><div class="seal-sparkle" aria-hidden="true">✦</div><button id="open" aria-label="Tap envelope to open invitation"></button></section>
+<section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><div class="envelope-card" aria-hidden="true">Hagar &amp; Ahmed<br>19 · 11 · 2026</div><div class="envelope-door envelope-door-left" aria-hidden="true"></div><div class="envelope-door envelope-door-right" aria-hidden="true"></div><div class="seal-sparkle" aria-hidden="true">✦</div><div class="opening-halo" aria-hidden="true"></div><div class="opening-glint" aria-hidden="true"></div><div class="opening-caption" aria-hidden="true">Our forever begins here</div><button id="open" aria-label="Tap envelope to open invitation"></button></section>
 <div id="invitation" class="hidden">
 <section class="scene reveal"><img src="scene-2.webp" alt="We're getting married: Hagar and Ahmed, The Citadel of Saladin, Cairo, November 19 2026 at 6 PM"></section>
 <section class="quran fade"><h2>IN THE NAME OF ALLAH</h2><div class="verse" lang="ar">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ ﴾</div><p>“And He placed between you affection and mercy.”</p><small>SURAH AR-RUM · 30:21</small></section>
@@ -292,7 +309,7 @@ document.getElementById('open').addEventListener('click',async()=>{
   window.scrollTo({top:0,behavior:'instant'});
   observe();
   isOpening=false;
- },1500);
+ },2050);
 });
 envelopeToggle.addEventListener('click',()=>{
  if(isOpening)return;
