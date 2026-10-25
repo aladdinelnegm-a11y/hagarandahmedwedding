@@ -73,6 +73,12 @@
 .video-scene.available{display:block}
 .video-scene video{display:block;width:100%;max-height:78svh;object-fit:contain;background:#f5e9da}
 @media(prefers-reduced-motion:reduce){.invitation-petals{display:none!important}.details h2,.details h2:after,.couple-title,.countdown strong.tick,#invitation>.scene.fade.visible>img{animation:none!important}}
+
+/* Festive mode: more visible metallic paper, flower petals and floating sparkle */
+.invitation-petals i{filter:drop-shadow(0 1px 2px #8a642b50)}
+.invitation-petals i:nth-child(6n){background:linear-gradient(130deg,#fff5b7,#d6a23a 60%,#94641d);box-shadow:0 0 7px #f2d176a8}
+.invitation-petals i:nth-child(9n){border-radius:50%;width:5px;height:5px;box-shadow:0 0 9px 2px #e9bf68a0}
+@media(max-width:600px){.invitation-petals i{opacity:.8}}
 </style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><div class="invitation-petals" id="invitationPetals" aria-hidden="true"></div><main class="wrap">
@@ -92,18 +98,18 @@
 function startInvitationPetals(){
  const layer=document.getElementById('invitationPetals');
  if(layer.classList.contains('active')||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
- const shades=['#e4b74e','#f9de93','#c89430','#fff0b8','#e7b4ac','#f6d7cb','#c9a267'];
- const count=window.innerWidth<600?76:115;
+ const shades=['#e4b74e','#f9de93','#c89430','#fff0b8','#e7b4ac','#f6d7cb','#c9a267','#f5b7c7','#fce1e6','#d69d4e'];
+ const count=window.innerWidth<600?145:220;
  for(let i=0;i<count;i++){
-  const el=document.createElement('i'),petal=i%4===0;
+  const el=document.createElement('i'),petal=i%3===0;
   el.style.setProperty('--x',Math.random()*100+'%');
   el.style.setProperty('--w',(petal?8:4)+Math.random()*7+'px');
   el.style.setProperty('--h',(petal?12:7)+Math.random()*9+'px');
   el.style.setProperty('--tone',shades[i%shades.length]);
   el.style.setProperty('--radius',petal?'75% 0 75% 0':'1px');
-  el.style.setProperty('--speed',(7+Math.random()*9)+'s');
+  el.style.setProperty('--speed',(5.5+Math.random()*8)+'s');
   el.style.setProperty('--delay',(-Math.random()*16)+'s');
-  el.style.setProperty('--drift',((Math.random()-.5)*180)+'px');
+  el.style.setProperty('--drift',((Math.random()-.5)*270)+'px');
   el.style.setProperty('--spin',(540+Math.random()*900)+'deg');
   layer.appendChild(el);
  }
@@ -126,7 +132,7 @@ function celebrateOpening(){
  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  confetti.replaceChildren();confetti.classList.add('active');
  const shades=['#f5d875','#d7a43b','#fff2bc','#b9882e','#f4d9c8','#e9a9a4','#fff9ee'];
- for(let i=0;i<105;i++){
+ for(let i=0;i<155;i++){
   const piece=document.createElement('i'),angle=(i/105)*Math.PI*2+(Math.random()-.5)*.5;
   const distance=180+Math.random()*Math.max(innerWidth,innerHeight)*.85;
   const petal=i%4===0;
@@ -142,7 +148,7 @@ function celebrateOpening(){
   confetti.appendChild(piece);
  }
  // Two party-popper cannons fire from the lower corners
- for(let i=0;i<110;i++){
+ for(let i=0;i<155;i++){
   const piece=document.createElement('i'),left=i%2===0,angle=(left?-1:1)*(0.4+Math.random()*1.05);
   const distance=220+Math.random()*Math.max(innerWidth,innerHeight)*.65;
   piece.className='cannon';
@@ -159,7 +165,7 @@ function celebrateOpening(){
   confetti.appendChild(piece);
  }
  // A second, gentle shower follows the opening burst
- for(let i=0;i<45;i++){
+ for(let i=0;i<75;i++){
   const piece=document.createElement('i');piece.className='floater';
   piece.style.setProperty('--origin',Math.random()*100+'%');
   piece.style.setProperty('--dx',(Math.random()-.5)*190+'px');
