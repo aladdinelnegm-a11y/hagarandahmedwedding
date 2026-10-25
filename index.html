@@ -15,7 +15,18 @@
 .gold-confetti i{position:absolute;left:50%;top:48%;width:var(--w);height:var(--h);background:var(--shade);border-radius:var(--round);opacity:0;box-shadow:0 0 2px #8b612a44;animation:celebrate var(--duration) cubic-bezier(.12,.65,.32,1) var(--delay) forwards}
 @keyframes celebrate{0%{opacity:0;transform:translate3d(0,0,0) rotate(0deg) scale(.5)}8%{opacity:1}35%{opacity:1}100%{opacity:0;transform:translate3d(var(--dx),var(--dy),0) rotate(var(--spin)) scale(.85)}}
 @media(prefers-reduced-motion:reduce){.gold-confetti{display:none!important}}
-.final-scene{position:relative}.final-message{position:absolute;left:5%;right:5%;bottom:7%;text-align:center;color:#fff;text-shadow:0 2px 8px #23160f,0 0 20px #23160fcc;pointer-events:none}.final-message .forever{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(26px,6vw,48px);line-height:1.15}.final-message .signature{font-family:Georgia,serif;font-size:clamp(10px,2vw,15px);letter-spacing:.12em;margin-top:12px;line-height:1.5}@media(max-width:400px){.final-message{bottom:5%}}</style>
+.final-scene{position:relative}.final-message{position:absolute;left:5%;right:5%;bottom:7%;text-align:center;color:#fff;text-shadow:0 2px 8px #23160f,0 0 20px #23160fcc;pointer-events:none}.final-message .forever{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(26px,6vw,48px);line-height:1.15}.final-message .signature{font-family:Georgia,serif;font-size:clamp(10px,2vw,15px);letter-spacing:.12em;margin-top:12px;line-height:1.5}@media(max-width:400px){.final-message{bottom:5%}}
+/* Extra wedding magic: two confetti cannons, floating petals and soft shimmer */
+.gold-confetti i.cannon{top:75%;left:var(--origin);animation-name:cannonBurst;animation-timing-function:cubic-bezier(.18,.58,.4,1)}
+@keyframes cannonBurst{0%{opacity:0;transform:translate(0,0) rotate(0) scale(.4)}8%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--spin))}}
+.gold-confetti i.floater{top:-8%;left:var(--origin);opacity:0;animation-name:petalFloat;animation-timing-function:linear}
+@keyframes petalFloat{0%{opacity:0;transform:translate(0,-5vh) rotate(0)}10%{opacity:.95}85%{opacity:.9}100%{opacity:0;transform:translate(var(--dx),110vh) rotate(var(--spin))}}
+.scene.fade.visible img{animation:photoReveal 1.4s ease both}
+@keyframes photoReveal{from{opacity:.6;transform:scale(1.035)}to{opacity:1;transform:scale(1)}}
+.final-message .forever{animation:softGlow 3.5s ease-in-out infinite alternate}
+@keyframes softGlow{from{text-shadow:0 2px 8px #23160f,0 0 12px #fff5}to{text-shadow:0 2px 8px #23160f,0 0 24px #fff,0 0 36px #fff8}}
+@media(prefers-reduced-motion:reduce){.scene.fade.visible img,.final-message .forever{animation:none!important}}
+</style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
 <section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><button id="open" aria-label="Tap envelope to open invitation"></button></section>
@@ -50,7 +61,39 @@ function celebrateOpening(){
   piece.style.setProperty('--shade',shades[Math.floor(Math.random()*shades.length)]);
   confetti.appendChild(piece);
  }
- setTimeout(()=>{confetti.classList.remove('active');confetti.replaceChildren()},5600);
+ // Two party-popper cannons fire from the lower corners
+ for(let i=0;i<110;i++){
+  const piece=document.createElement('i'),left=i%2===0,angle=(left?-1:1)*(0.4+Math.random()*1.05);
+  const distance=220+Math.random()*Math.max(innerWidth,innerHeight)*.65;
+  piece.className='cannon';
+  piece.style.setProperty('--origin',left?'4%':'96%');
+  piece.style.setProperty('--dx',Math.round((left?1:-1)*Math.cos(angle)*distance)+'px');
+  piece.style.setProperty('--dy',Math.round(-Math.abs(Math.sin(angle))*distance+Math.random()*innerHeight*.4)+'px');
+  piece.style.setProperty('--spin',(400+Math.random()*1200)+'deg');
+  piece.style.setProperty('--duration',(2.3+Math.random()*2.4)+'s');
+  piece.style.setProperty('--delay',(Math.random()*.4)+'s');
+  piece.style.setProperty('--w',(5+Math.random()*8)+'px');
+  piece.style.setProperty('--h',(7+Math.random()*12)+'px');
+  piece.style.setProperty('--round',i%3===0?'75% 0 75% 0':'1px');
+  piece.style.setProperty('--shade',shades[Math.floor(Math.random()*shades.length)]);
+  confetti.appendChild(piece);
+ }
+ // A second, gentle shower follows the opening burst
+ for(let i=0;i<45;i++){
+  const piece=document.createElement('i');piece.className='floater';
+  piece.style.setProperty('--origin',Math.random()*100+'%');
+  piece.style.setProperty('--dx',(Math.random()-.5)*190+'px');
+  piece.style.setProperty('--dy','110vh');
+  piece.style.setProperty('--spin',(360+Math.random()*900)+'deg');
+  piece.style.setProperty('--duration',(5+Math.random()*3)+'s');
+  piece.style.setProperty('--delay',(1+Math.random()*2)+'s');
+  piece.style.setProperty('--w',(6+Math.random()*7)+'px');
+  piece.style.setProperty('--h',(9+Math.random()*10)+'px');
+  piece.style.setProperty('--round',i%2?'75% 0 75% 0':'1px');
+  piece.style.setProperty('--shade',shades[Math.floor(Math.random()*shades.length)]);
+  confetti.appendChild(piece);
+ }
+ setTimeout(()=>{confetti.classList.remove('active');confetti.replaceChildren()},11500);
 }
 const cover=document.getElementById('cover'),inv=document.getElementById('invitation'),song=document.getElementById('song'),music=document.getElementById('musicButton');
 function setMusic(){music.textContent=song.paused?'♪':'♫';music.setAttribute('aria-label',song.paused?'Play music':'Pause music')}
