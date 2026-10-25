@@ -11,7 +11,7 @@
 
 /* Soft falling gold confetti */
 .gold-confetti{position:fixed;inset:0;z-index:15;pointer-events:none;overflow:hidden}.gold-confetti i{position:absolute;top:-12vh;display:block;width:7px;height:12px;border-radius:1px;background:linear-gradient(135deg,#fff1aa,#c69b38 65%,#8f692b);opacity:.85;animation:goldfall var(--duration) linear infinite;animation-delay:var(--delay);left:var(--left);transform:rotate(var(--rotation))}.gold-confetti i:nth-child(3n){width:5px;height:5px;border-radius:50%;background:#e4bd68}.gold-confetti i:nth-child(5n){width:3px;height:14px}@keyframes goldfall{0%{transform:translate3d(0,-12vh,0) rotate(0deg);opacity:0}8%{opacity:.9}90%{opacity:.8}100%{transform:translate3d(var(--drift),112vh,0) rotate(760deg);opacity:0}}@media(prefers-reduced-motion:reduce){.gold-confetti{display:none}}
-</style>
+.final-scene{position:relative}.final-message{position:absolute;left:5%;right:5%;bottom:7%;text-align:center;color:#f7df9b;text-shadow:0 2px 8px #23160f,0 0 20px #23160fcc;pointer-events:none}.final-message .forever{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(26px,6vw,48px);line-height:1.15}.final-message .signature{font-family:Georgia,serif;font-size:clamp(10px,2vw,15px);letter-spacing:.12em;margin-top:12px;line-height:1.5}@media(max-width:400px){.final-message{bottom:5%}}</style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
 <section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><button id="open" aria-label="Tap envelope to open invitation"></button></section>
@@ -22,7 +22,7 @@
 <section class="scene fade"><img loading="lazy" src="scene-4.webp" alt="The Details — click here"><button class="hotspot" id="detailsButton" aria-label="Show wedding details"></button></section>
 <section id="wedding-details" class="details fade"><h2>Save the Date</h2><p>Thursday, November 19, 2026</p><div class="divider">✦</div><p>6:00 PM</p><p>The Citadel of Saladin<br>Cairo, Egypt</p><div class="countdown" id="countdown" aria-label="Countdown to the wedding"></div><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Citadel+of+Saladin+Cairo">GET DIRECTIONS</a></section>
 <section class="scene fade"><img loading="lazy" src="scene-5.webp" alt="Wedding date November 19, 2026 at 6 PM, The Citadel of Saladin Cairo"></section>
-<section class="scene fade"><img loading="lazy" src="scene-6.webp" alt="Hagar and Ahmed — forever begins here"></section>
+<section class="scene fade final-scene"><img loading="lazy" src="scene-6.webp" alt="Hagar and Ahmed — forever begins here"><div class="final-message"><div class="forever">And so, our forever begins…</div><div class="signature">Hagar &amp; Ahmed — November 19, 2026</div></div></section>
 </div></main>
 <audio id="song" src="music.mp3" loop preload="none"></audio><button class="music" id="musicButton" hidden aria-label="Pause music" title="Toggle music">♫</button>
 <script>
