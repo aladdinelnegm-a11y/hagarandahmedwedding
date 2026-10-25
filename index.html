@@ -176,6 +176,15 @@ body{background:#241e1b}
 @keyframes letterLift{0%{opacity:0;transform:translateY(20%) scale(.92)}25%{opacity:1}100%{opacity:1;transform:translateY(-22%) scale(1.045)}}
 @keyframes sealTwinkle{0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(-25deg)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.8) rotate(60deg)}}
 @media(prefers-reduced-motion:reduce){.cover.opening .envelope-door,.cover.opening .envelope-card,.cover.opening .seal-sparkle{animation:none!important}}
+
+/* Minimal elegant envelope opening: original artwork only, no extra paper layers */
+.cover .envelope-card,.cover .envelope-flap,.cover .envelope-door,.cover .seal-sparkle,.cover .paper-envelope{display:none!important}
+.cover.opening>img{animation:minimalEnvelopeOpen 1.25s cubic-bezier(.22,.61,.36,1) forwards!important}
+.cover.opening{animation:minimalCoverFade .6s .8s ease forwards!important}
+.cover.opening:before{display:none!important}
+@keyframes minimalEnvelopeOpen{0%{transform:scale(1);filter:brightness(1);opacity:1}65%{transform:scale(1.035);filter:brightness(1.07);opacity:1}100%{transform:scale(1.065);filter:brightness(1.03);opacity:0}}
+@keyframes minimalCoverFade{from{opacity:1}to{opacity:0}}
+@media(prefers-reduced-motion:reduce){.cover.opening>img{animation:none!important}.cover.opening{opacity:0}}
 </style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
@@ -283,7 +292,7 @@ document.getElementById('open').addEventListener('click',async()=>{
   window.scrollTo({top:0,behavior:'instant'});
   observe();
   isOpening=false;
- },1850);
+ },1500);
 });
 envelopeToggle.addEventListener('click',()=>{
  if(isOpening)return;
