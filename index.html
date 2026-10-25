@@ -39,6 +39,14 @@
 @keyframes photoCinematicC{0%{transform:scale(1.02) translate(-1.2%,1%)}100%{transform:scale(1.12) translate(1.5%,-1.5%)}}
 @keyframes coverCinematic{0%{transform:scale(1.01)}100%{transform:scale(1.09) translateY(-.8%)}}
 @media(prefers-reduced-motion:reduce){.scene.fade.visible:not(.heart-video-scene)>img,.scene.reveal>img,.cover>img{animation:none!important;will-change:auto}}
+
+/* Prevent dark strips between stacked images during zoom/pan */
+#invitation{background:#f5e9da}
+#invitation>.scene{background:#f5e9da;isolation:isolate}
+#invitation>.scene>img{display:block;width:100%;height:auto}
+#invitation>.scene.fade{transform:none;transition:opacity .8s ease}
+#invitation>.scene.fade.visible{transform:none}
+#invitation>.scene:not(.final-scene)>img{transform-origin:center}
 </style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
