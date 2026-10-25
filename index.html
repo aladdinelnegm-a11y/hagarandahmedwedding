@@ -155,10 +155,31 @@ body{background:#241e1b}
 .envelope-toggle[hidden]{display:none}
 .envelope-toggle:hover,.envelope-toggle:focus-visible{background:#fff;outline:2px solid #c4a06c;outline-offset:2px}
 @media(max-width:420px){.envelope-toggle{font-size:12px;padding:10px 13px}}
+
+/* Redesigned opening: elegant two-wing paper reveal */
+.cover{isolation:isolate}
+.cover .envelope-door{position:absolute;z-index:2;top:28%;height:47%;width:40%;opacity:0;pointer-events:none;background:linear-gradient(135deg,#f8e9d5ed,#d6b998e6);border:1px solid #c7a782;box-shadow:0 8px 25px #28190e44}
+.cover .envelope-door-left{left:10%;clip-path:polygon(0 0,100% 50%,0 100%)}
+.cover .envelope-door-right{right:10%;clip-path:polygon(100% 0,0 50%,100% 100%)}
+.cover .seal-sparkle{position:absolute;z-index:3;top:51.5%;left:50%;transform:translate(-50%,-50%) scale(.3);font-size:clamp(35px,7vw,60px);color:#f8dc9c;opacity:0;text-shadow:0 0 15px #fff6ca,0 0 30px #dfb660;pointer-events:none}
+.cover .envelope-card{z-index:1;top:34%;height:40%;left:17%;width:66%;opacity:0;background:linear-gradient(155deg,#fffaf0,#ead8bd);border:1px solid #c3a57f;border-radius:2px;box-shadow:0 10px 28px #271a1055;transform:translateY(20%) scale(.92);font-size:clamp(22px,5vw,35px)}
+.cover.opening .envelope-door{opacity:1}
+.cover.opening .envelope-door-left{animation:paperWingLeft 1.35s .12s cubic-bezier(.25,.75,.25,1) forwards}
+.cover.opening .envelope-door-right{animation:paperWingRight 1.35s .12s cubic-bezier(.25,.75,.25,1) forwards}
+.cover.opening .envelope-card{animation:letterLift 1.5s .2s cubic-bezier(.2,.75,.25,1) forwards}
+.cover.opening .seal-sparkle{animation:sealTwinkle .85s ease-out forwards}
+.cover.opening:before{animation:none!important;opacity:0}
+.cover.opening>img{animation:envelopeBackdrop 1.6s ease-in-out forwards}
+.cover.opening{animation:envelopeFadeOut .4s 1.5s ease forwards}
+@keyframes paperWingLeft{0%{transform:translateX(0) rotate(0);opacity:.95}100%{transform:translateX(-110%) rotate(-12deg);opacity:0}}
+@keyframes paperWingRight{0%{transform:translateX(0) rotate(0);opacity:.95}100%{transform:translateX(110%) rotate(12deg);opacity:0}}
+@keyframes letterLift{0%{opacity:0;transform:translateY(20%) scale(.92)}25%{opacity:1}100%{opacity:1;transform:translateY(-22%) scale(1.045)}}
+@keyframes sealTwinkle{0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(-25deg)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.8) rotate(60deg)}}
+@media(prefers-reduced-motion:reduce){.cover.opening .envelope-door,.cover.opening .envelope-card,.cover.opening .seal-sparkle{animation:none!important}}
 </style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
-<section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><div class="envelope-card" aria-hidden="true">Hagar &amp; Ahmed<br>19 · 11 · 2026</div><div class="envelope-flap" aria-hidden="true"></div><button id="open" aria-label="Tap envelope to open invitation"></button></section>
+<section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><div class="envelope-card" aria-hidden="true">Hagar &amp; Ahmed<br>19 · 11 · 2026</div><div class="envelope-door envelope-door-left" aria-hidden="true"></div><div class="envelope-door envelope-door-right" aria-hidden="true"></div><div class="seal-sparkle" aria-hidden="true">✦</div><button id="open" aria-label="Tap envelope to open invitation"></button></section>
 <div id="invitation" class="hidden">
 <section class="scene reveal"><img src="scene-2.webp" alt="We're getting married: Hagar and Ahmed, The Citadel of Saladin, Cairo, November 19 2026 at 6 PM"></section>
 <section class="quran fade"><h2>IN THE NAME OF ALLAH</h2><div class="verse" lang="ar">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ ﴾</div><p>“And He placed between you affection and mercy.”</p><small>SURAH AR-RUM · 30:21</small></section>
