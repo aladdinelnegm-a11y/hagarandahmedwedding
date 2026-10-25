@@ -9,9 +9,13 @@
 <style>
 :root{color-scheme:light;--paper:#f5e9da;--ink:#55493e}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#1e1a17;color:var(--ink);font-family:'Cormorant Garamond',Georgia,serif}button,a{-webkit-tap-highlight-color:transparent}button{cursor:pointer}.wrap{width:min(100%,650px);margin:auto;background:var(--paper);overflow:hidden;box-shadow:0 0 70px #0008}.scene{position:relative;line-height:0}.scene img{display:block;width:100%;height:auto}.cover{min-height:100svh;background:#302923;display:grid;place-items:center;position:relative;overflow:hidden}.cover>img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}.cover button{position:absolute;inset:28% 7% 18%;width:86%;border:0;background:transparent;cursor:pointer}.cover button:focus-visible,.hotspot:focus-visible{outline:3px solid #fff;outline-offset:-6px}.cover .tap{position:absolute;bottom:10%;left:0;right:0;text-align:center;color:#fff;letter-spacing:.2em;font-size:clamp(12px,2.8vw,17px);pointer-events:none;animation:pulse 2s infinite}.cover.opening{animation:fadeAway .9s ease forwards;pointer-events:none}.hidden{display:none}.reveal{animation:rise 1s ease both}.quran{padding:64px 30px 56px;text-align:center;background:#f7eddf;position:relative}.quran:before,.quran:after{content:'✦';display:block;font-size:20px;color:#9b8570}.quran h2{font-size:16px;font-weight:400;letter-spacing:.28em;margin:26px 0;color:#82705f}.quran .verse{font-family:Amiri,serif;font-size:clamp(25px,5vw,35px);line-height:2.05;direction:rtl;margin:20px auto;max-width:550px}.quran p{font-size:20px;font-style:italic;line-height:1.5;margin:20px auto 30px;max-width:440px}.details{background:#f6e9d8;text-align:center;padding:58px 20px 64px}.details h2{font-size:48px;font-weight:400;font-style:italic;margin:0 0 14px}.details p{font-size:25px;line-height:1.45;margin:8px}.details .divider{font-size:22px;margin:20px}.button{display:inline-block;border:1px solid #887665;color:#55493e;background:transparent;text-decoration:none;padding:13px 28px;margin:18px 6px 0;font:17px Georgia,serif;letter-spacing:.09em;transition:background .2s}.button:hover{background:#e8d9c7}.hotspot{position:absolute;top:15%;left:17%;width:57%;height:29%;border:0;background:transparent}.countdown{display:flex;justify-content:center;gap:17px;margin-top:28px}.countdown div{min-width:60px}.countdown strong{display:block;font-size:34px;font-weight:400}.countdown span{font-size:12px;letter-spacing:.13em}.music{position:fixed;z-index:20;right:18px;bottom:18px;width:48px;height:48px;border-radius:50%;border:1px solid #a28b74;background:#f7eadfeF;color:#5b4737;font-size:21px;box-shadow:0 3px 18px #0004}.music[hidden]{display:none}.fade{opacity:0;transform:translateY(25px);transition:opacity .8s,transform .8s}.fade.visible{opacity:1;transform:none}@keyframes pulse{50%{opacity:.5}}@keyframes fadeAway{to{opacity:0;transform:scale(1.04)}}@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}@media(min-width:651px){.cover{min-height:0;aspect-ratio:990/1516}.cover>img{object-fit:contain}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 
-/* Soft falling gold confetti */
-.gold-confetti{position:fixed;inset:0;z-index:15;pointer-events:none;overflow:hidden}.gold-confetti i{position:absolute;top:-12vh;display:block;width:7px;height:12px;border-radius:1px;background:linear-gradient(135deg,#fff1aa,#c69b38 65%,#8f692b);opacity:.85;animation:goldfall var(--duration) linear infinite;animation-delay:var(--delay);left:var(--left);transform:rotate(var(--rotation))}.gold-confetti i:nth-child(3n){width:5px;height:5px;border-radius:50%;background:#e4bd68}.gold-confetti i:nth-child(5n){width:3px;height:14px}@keyframes goldfall{0%{transform:translate3d(0,-12vh,0) rotate(0deg);opacity:0}8%{opacity:.9}90%{opacity:.8}100%{transform:translate3d(var(--drift),112vh,0) rotate(760deg);opacity:0}}@media(prefers-reduced-motion:reduce){.gold-confetti{display:none}}
-.final-scene{position:relative}.final-message{position:absolute;left:5%;right:5%;bottom:7%;text-align:center;color:#f7df9b;text-shadow:0 2px 8px #23160f,0 0 20px #23160fcc;pointer-events:none}.final-message .forever{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(26px,6vw,48px);line-height:1.15}.final-message .signature{font-family:Georgia,serif;font-size:clamp(10px,2vw,15px);letter-spacing:.12em;margin-top:12px;line-height:1.5}@media(max-width:400px){.final-message{bottom:5%}}</style>
+/* Celebratory confetti and rose-petal burst on opening */
+.gold-confetti{position:fixed;inset:0;z-index:30;pointer-events:none;overflow:hidden;display:none}
+.gold-confetti.active{display:block}
+.gold-confetti i{position:absolute;left:50%;top:48%;width:var(--w);height:var(--h);background:var(--shade);border-radius:var(--round);opacity:0;box-shadow:0 0 2px #8b612a44;animation:celebrate var(--duration) cubic-bezier(.12,.65,.32,1) var(--delay) forwards}
+@keyframes celebrate{0%{opacity:0;transform:translate3d(0,0,0) rotate(0deg) scale(.5)}8%{opacity:1}35%{opacity:1}100%{opacity:0;transform:translate3d(var(--dx),var(--dy),0) rotate(var(--spin)) scale(.85)}}
+@media(prefers-reduced-motion:reduce){.gold-confetti{display:none!important}}
+.final-scene{position:relative}.final-message{position:absolute;left:5%;right:5%;bottom:7%;text-align:center;color:#fff;text-shadow:0 2px 8px #23160f,0 0 20px #23160fcc;pointer-events:none}.final-message .forever{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(26px,6vw,48px);line-height:1.15}.final-message .signature{font-family:Georgia,serif;font-size:clamp(10px,2vw,15px);letter-spacing:.12em;margin-top:12px;line-height:1.5}@media(max-width:400px){.final-message{bottom:5%}}</style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
 <section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><button id="open" aria-label="Tap envelope to open invitation"></button></section>
@@ -26,10 +30,31 @@
 </div></main>
 <audio id="song" src="music.mp3" loop preload="none"></audio><button class="music" id="musicButton" hidden aria-label="Pause music" title="Toggle music">♫</button>
 <script>
-const confetti=document.getElementById('goldConfetti');for(let i=0;i<42;i++){const piece=document.createElement('i');piece.style.setProperty('--left',`${(i*61.8)%100}%`);piece.style.setProperty('--delay',`${-((i*3.7)%18)}s`);piece.style.setProperty('--duration',`${10+(i%9)*1.3}s`);piece.style.setProperty('--drift',`${(i%2?1:-1)*(25+i%80)}px`);confetti.appendChild(piece)}
+const confetti=document.getElementById('goldConfetti');
+function celebrateOpening(){
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ confetti.replaceChildren();confetti.classList.add('active');
+ const shades=['#f5d875','#d7a43b','#fff2bc','#b9882e','#f4d9c8','#e9a9a4','#fff9ee'];
+ for(let i=0;i<105;i++){
+  const piece=document.createElement('i'),angle=(i/105)*Math.PI*2+(Math.random()-.5)*.5;
+  const distance=180+Math.random()*Math.max(innerWidth,innerHeight)*.85;
+  const petal=i%4===0;
+  piece.style.setProperty('--dx',Math.round(Math.cos(angle)*distance)+'px');
+  piece.style.setProperty('--dy',Math.round(Math.sin(angle)*distance+innerHeight*.45)+'px');
+  piece.style.setProperty('--spin',(360+Math.random()*1080)+'deg');
+  piece.style.setProperty('--duration',(2.5+Math.random()*2.5)+'s');
+  piece.style.setProperty('--delay',(Math.random()*.3)+'s');
+  piece.style.setProperty('--w',(petal?10+Math.random()*7:5+Math.random()*6)+'px');
+  piece.style.setProperty('--h',(petal?13+Math.random()*8:8+Math.random()*9)+'px');
+  piece.style.setProperty('--round',petal?'75% 0 75% 0':'1px');
+  piece.style.setProperty('--shade',shades[Math.floor(Math.random()*shades.length)]);
+  confetti.appendChild(piece);
+ }
+ setTimeout(()=>{confetti.classList.remove('active');confetti.replaceChildren()},5600);
+}
 const cover=document.getElementById('cover'),inv=document.getElementById('invitation'),song=document.getElementById('song'),music=document.getElementById('musicButton');
 function setMusic(){music.textContent=song.paused?'♪':'♫';music.setAttribute('aria-label',song.paused?'Play music':'Pause music')}
-document.getElementById('open').addEventListener('click',async()=>{inv.classList.remove('hidden');cover.classList.add('opening');music.hidden=false;try{await song.play()}catch(e){}setMusic();setTimeout(()=>{cover.remove();window.scrollTo({top:0,behavior:'instant'});observe()},850)},{once:true});
+document.getElementById('open').addEventListener('click',async()=>{inv.classList.remove('hidden');cover.classList.add('opening');celebrateOpening();music.hidden=false;try{await song.play()}catch(e){}setMusic();setTimeout(()=>{cover.remove();window.scrollTo({top:0,behavior:'instant'});observe()},850)},{once:true});
 music.addEventListener('click',async()=>{if(song.paused){try{await song.play()}catch(e){}}else song.pause();setMusic()});
 document.getElementById('detailsButton').addEventListener('click',()=>document.getElementById('wedding-details').scrollIntoView({behavior:'smooth'}));
 function observe(){const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.fade').forEach(el=>io.observe(el))}
