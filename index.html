@@ -47,21 +47,80 @@
 #invitation>.scene.fade{transform:none;transition:opacity .8s ease}
 #invitation>.scene.fade.visible{transform:none}
 #invitation>.scene:not(.final-scene)>img{transform-origin:center}
+
+/* Floating gold foil and rose petals throughout the opened invitation */
+.invitation-petals{position:fixed;inset:0;z-index:11;pointer-events:none;overflow:hidden;display:none}
+.invitation-petals.active{display:block}
+.invitation-petals i{position:absolute;top:-24px;left:var(--x);width:var(--w);height:var(--h);background:var(--tone);border-radius:var(--radius);box-shadow:0 1px 3px #704d1e33;opacity:0;animation:invitationFall var(--speed) linear var(--delay) infinite}
+@keyframes invitationFall{0%{transform:translate3d(0,-30px,0) rotate(0);opacity:0}9%{opacity:.88}87%{opacity:.88}100%{transform:translate3d(var(--drift),110vh,0) rotate(var(--spin));opacity:0}}
+/* Richer photo transitions without gaps */
+#invitation>.scene{overflow:hidden;background:#f5e9da}
+#invitation>.scene.fade.visible>img{animation:cinematicFloat 9s ease-in-out infinite alternate}
+#invitation>.scene.fade:nth-of-type(even).visible>img{animation-name:cinematicFloatReverse;animation-duration:11s}
+@keyframes cinematicFloat{from{transform:scale(1.025) translate(0,0)}to{transform:scale(1.11) translate(-1.2%,.9%)}}
+@keyframes cinematicFloatReverse{from{transform:scale(1.11) translate(1%,-.8%)}to{transform:scale(1.025) translate(-.8%,.8%)}}
+.details h2{position:relative;display:inline-block;animation:nameFloat 4s ease-in-out infinite alternate}
+.details h2:after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 25%,#fff9 49%,transparent 66%);background-size:240% 100%;background-position:120% 0;mix-blend-mode:screen;pointer-events:none;animation:nameShine 5s ease-in-out infinite}
+@keyframes nameFloat{from{transform:translateY(0)}to{transform:translateY(-5px)}}
+@keyframes nameShine{0%,40%{background-position:120% 0}80%,100%{background-position:-130% 0}}
+.couple-title{font-size:clamp(36px,8vw,58px);font-style:italic;line-height:1.1;margin:0 0 14px;color:#866b45;text-shadow:0 1px 1px #fff9;animation:nameFloat 4s ease-in-out infinite alternate}
+.countdown strong{display:inline-block;transition:transform .3s ease,color .3s ease}
+.countdown strong.tick{animation:countPulse .45s ease}
+@keyframes countPulse{50%{transform:scale(1.12);color:#b18b4b}}
+.button{transition:background .25s,transform .25s,box-shadow .25s}
+.button:hover,.button:focus-visible{transform:translateY(-3px);box-shadow:0 5px 15px #7e5c3626}
+.video-scene{display:none;background:#f5e9da;line-height:0}
+.video-scene.available{display:block}
+.video-scene video{display:block;width:100%;max-height:78svh;object-fit:contain;background:#f5e9da}
+@media(prefers-reduced-motion:reduce){.invitation-petals{display:none!important}.details h2,.details h2:after,.couple-title,.countdown strong.tick,#invitation>.scene.fade.visible>img{animation:none!important}}
 </style>
 </head>
-<body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
+<body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><div class="invitation-petals" id="invitationPetals" aria-hidden="true"></div><main class="wrap">
 <section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><button id="open" aria-label="Tap envelope to open invitation"></button></section>
 <div id="invitation" class="hidden">
 <section class="scene reveal"><img src="scene-2.webp" alt="We're getting married: Hagar and Ahmed, The Citadel of Saladin, Cairo, November 19 2026 at 6 PM"></section>
 <section class="quran fade"><h2>IN THE NAME OF ALLAH</h2><div class="verse" lang="ar">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ ﴾</div><p>“And He placed between you affection and mercy.”</p><small>SURAH AR-RUM · 30:21</small></section>
 <section class="scene fade"><img loading="lazy" src="scene-3.webp" alt="Our love story, from childhood to forever"></section>
 <section class="scene fade"><img loading="lazy" src="scene-4.webp" alt="The Details — click here"><button class="hotspot" id="detailsButton" aria-label="Show wedding details"></button></section>
-<section id="wedding-details" class="details fade"><h2>Save the Date</h2><p>Thursday, November 19, 2026</p><div class="divider">✦</div><p>6:00 PM</p><p>The Citadel of Saladin<br>Cairo, Egypt</p><div class="countdown" id="countdown" aria-label="Countdown to the wedding"></div><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Citadel+of+Saladin+Cairo">GET DIRECTIONS</a></section>
+<section id="wedding-details" class="details fade"><div class="couple-title">Hagar &amp; Ahmed</div><h2>Save the Date</h2><p>Thursday, November 19, 2026</p><div class="divider">✦</div><p>6:00 PM</p><p>The Citadel of Saladin<br>Cairo, Egypt</p><div class="countdown" id="countdown" aria-label="Countdown to the wedding"></div><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Citadel+of+Saladin+Cairo">GET DIRECTIONS</a><a class="button" id="calendarLink" href="#" download="Hagar-and-Ahmed-Wedding.ics">ADD TO CALENDAR</a></section>
 <section class="scene fade"><img loading="lazy" src="scene-5.webp" alt="Wedding date November 19, 2026 at 6 PM, The Citadel of Saladin Cairo"></section>
-<section class="scene fade final-scene"><img loading="lazy" src="scene-6.webp" alt="Hagar and Ahmed — forever begins here"><div class="final-message"><div class="forever">And so, our forever begins…</div><div class="signature">Hagar &amp; Ahmed — November 19, 2026</div></div></section>
+<section class="scene fade video-scene" id="weddingVideoSection" aria-label="Romantic wedding video"><video id="weddingVideo" muted autoplay loop playsinline preload="none" aria-label="Romantic silent wedding video"></video></section><section class="scene fade final-scene"><img loading="lazy" src="scene-6.webp" alt="Hagar and Ahmed — forever begins here"><div class="final-message"><div class="forever">And so, our forever begins…</div><div class="signature">Hagar &amp; Ahmed — November 19, 2026</div></div></section>
 </div></main>
 <audio id="song" src="music.mp3" loop preload="none"></audio><button class="music" id="musicButton" hidden aria-label="Pause music" title="Toggle music">♫</button>
 <script>
+
+function startInvitationPetals(){
+ const layer=document.getElementById('invitationPetals');
+ if(layer.classList.contains('active')||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const shades=['#e4b74e','#f9de93','#c89430','#fff0b8','#e7b4ac','#f6d7cb','#c9a267'];
+ const count=window.innerWidth<600?76:115;
+ for(let i=0;i<count;i++){
+  const el=document.createElement('i'),petal=i%4===0;
+  el.style.setProperty('--x',Math.random()*100+'%');
+  el.style.setProperty('--w',(petal?8:4)+Math.random()*7+'px');
+  el.style.setProperty('--h',(petal?12:7)+Math.random()*9+'px');
+  el.style.setProperty('--tone',shades[i%shades.length]);
+  el.style.setProperty('--radius',petal?'75% 0 75% 0':'1px');
+  el.style.setProperty('--speed',(7+Math.random()*9)+'s');
+  el.style.setProperty('--delay',(-Math.random()*16)+'s');
+  el.style.setProperty('--drift',((Math.random()-.5)*180)+'px');
+  el.style.setProperty('--spin',(540+Math.random()*900)+'deg');
+  layer.appendChild(el);
+ }
+ layer.classList.add('active');
+}
+function setupCalendar(){
+ const start='20261119T160000Z',end='20261119T200000Z';
+ const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Hagar Ahmed//Wedding Invitation//EN','BEGIN:VEVENT','UID:hagar-ahmed-20261119@wedding','DTSTAMP:20261025T000000Z','DTSTART:'+start,'DTEND:'+end,'SUMMARY:Hagar & Ahmed Wedding','LOCATION:The Citadel of Saladin\\, Cairo\\, Egypt','DESCRIPTION:Wedding celebration at 6:00 PM Cairo time','END:VEVENT','END:VCALENDAR'].join('\\r\\n');
+ document.getElementById('calendarLink').href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
+}
+function setupWeddingVideo(){
+ const section=document.getElementById('weddingVideoSection'),video=document.getElementById('weddingVideo');
+ video.addEventListener('loadedmetadata',()=>{section.classList.add('available');section.classList.add('visible');video.play().catch(()=>{});},{once:true});
+ video.addEventListener('error',()=>{section.classList.remove('available');video.removeAttribute('src');});
+ video.src='wedding-video.mp4';
+}
+setupCalendar();setupWeddingVideo();
 const confetti=document.getElementById('goldConfetti');
 function celebrateOpening(){
  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -118,9 +177,9 @@ function celebrateOpening(){
 }
 const cover=document.getElementById('cover'),inv=document.getElementById('invitation'),song=document.getElementById('song'),music=document.getElementById('musicButton');
 function setMusic(){music.textContent=song.paused?'♪':'♫';music.setAttribute('aria-label',song.paused?'Play music':'Pause music')}
-document.getElementById('open').addEventListener('click',async()=>{inv.classList.remove('hidden');cover.classList.add('opening');celebrateOpening();music.hidden=false;try{await song.play()}catch(e){}setMusic();setTimeout(()=>{cover.remove();window.scrollTo({top:0,behavior:'instant'});observe()},850)},{once:true});
+document.getElementById('open').addEventListener('click',async()=>{inv.classList.remove('hidden');cover.classList.add('opening');celebrateOpening();startInvitationPetals();music.hidden=false;try{await song.play()}catch(e){}setMusic();setTimeout(()=>{cover.remove();window.scrollTo({top:0,behavior:'instant'});observe()},850)},{once:true});
 music.addEventListener('click',async()=>{if(song.paused){try{await song.play()}catch(e){}}else song.pause();setMusic()});
 document.getElementById('detailsButton').addEventListener('click',()=>document.getElementById('wedding-details').scrollIntoView({behavior:'smooth'}));
 function observe(){const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.fade').forEach(el=>io.observe(el))}
-function updateCountdown(){const target=new Date('2026-11-19T18:00:00+02:00').getTime(),delta=Math.max(0,target-Date.now()),units=[['DAYS',Math.floor(delta/86400000)],['HOURS',Math.floor(delta/3600000)%24],['MINS',Math.floor(delta/60000)%60],['SECS',Math.floor(delta/1000)%60]];document.getElementById('countdown').innerHTML=units.map(([name,n])=>`<div><strong>${String(n).padStart(2,'0')}</strong><span>${name}</span></div>`).join('')};updateCountdown();setInterval(updateCountdown,1000);
+function updateCountdown(){const target=new Date('2026-11-19T18:00:00+02:00').getTime(),delta=Math.max(0,target-Date.now()),units=[['DAYS',Math.floor(delta/86400000)],['HOURS',Math.floor(delta/3600000)%24],['MINS',Math.floor(delta/60000)%60],['SECS',Math.floor(delta/1000)%60]];document.getElementById('countdown').innerHTML=units.map(([name,n])=>`<div><strong class="tick">${String(n).padStart(2,'0')}</strong><span>${name}</span></div>`).join('')};updateCountdown();setInterval(updateCountdown,1000);
 </script></body></html>
