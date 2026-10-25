@@ -79,15 +79,46 @@
 .invitation-petals i:nth-child(6n){background:linear-gradient(130deg,#fff5b7,#d6a23a 60%,#94641d);box-shadow:0 0 7px #f2d176a8}
 .invitation-petals i:nth-child(9n){border-radius:50%;width:5px;height:5px;box-shadow:0 0 9px 2px #e9bf68a0}
 @media(max-width:600px){.invitation-petals i{opacity:.8}}
+
+/* Envelope reveal: folding paper flap and rising invitation card */
+.cover{perspective:1100px}
+.cover .envelope-flap{position:absolute;z-index:2;top:25%;left:9%;width:82%;height:30%;pointer-events:none;transform-origin:top center;clip-path:polygon(0 0,100% 0,50% 90%);background:linear-gradient(160deg,#f4e5d0dd,#cfb89ca8 65%,#ab8b7055);opacity:0;backface-visibility:hidden}
+.cover .envelope-card{position:absolute;z-index:1;left:17%;width:66%;top:34%;height:44%;background:linear-gradient(145deg,#fff8eb,#ead7bd);border:1px solid #bda78c;box-shadow:0 7px 25px #160f0b55;display:grid;place-items:center;text-align:center;color:#826544;font-style:italic;font-size:clamp(20px,5vw,34px);letter-spacing:.02em;opacity:0;pointer-events:none}
+.cover.opening .envelope-flap{opacity:1;animation:flapOpen 1.05s ease-in-out forwards}
+.cover.opening .envelope-card{opacity:1;animation:cardRise 1.35s .18s ease-out forwards}
+.cover.opening{animation:coverExit .55s 1.25s ease forwards}
+.cover.opening>img{animation:none}
+.cover button{z-index:4}
+@keyframes flapOpen{0%{transform:rotateX(0)}100%{transform:rotateX(160deg);opacity:.4}}
+@keyframes cardRise{0%{transform:translateY(14%) scale(.88);opacity:0}25%{opacity:1}100%{transform:translateY(-42%) scale(1.04);opacity:1}}
+@keyframes coverExit{to{opacity:0;transform:scale(1.025)}}
+/* A small editorial love-story chapter */
+.love-story{padding:68px 30px 74px;text-align:center;background:radial-gradient(ellipse at top,#fff9ef,#f1e1ce);position:relative}
+.love-story .eyebrow{font:12px Georgia,serif;letter-spacing:.32em;color:#947c60}
+.love-story h2{font-weight:400;font-style:italic;font-size:clamp(42px,9vw,65px);margin:14px 0 12px;color:#806345}
+.love-story .story-line{width:76px;height:1px;background:#b9945f;margin:22px auto}
+.love-story p{font-size:clamp(21px,5vw,28px);line-height:1.5;max-width:470px;margin:12px auto;color:#645244}
+.love-story.visible h2{animation:storyEnter 1.4s ease both}
+@keyframes storyEnter{from{opacity:0;transform:translateY(20px);letter-spacing:.07em}to{opacity:1;transform:translateY(0);letter-spacing:normal}}
+/* Couple-name shimmer on the details and ending */
+.couple-title{position:relative;display:inline-block;overflow:hidden}
+.couple-title:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,#fff9 50%,transparent 70%);background-size:240% 100%;animation:coupleShimmer 5s ease-in-out infinite;pointer-events:none}
+@keyframes coupleShimmer{0%,30%{background-position:140% 0}75%,100%{background-position:-140% 0}}
+.final-message{transition:transform 1.2s ease,opacity 1.2s ease}
+.final-scene:not(.visible) .final-message{opacity:0;transform:translateY(28px)}
+.final-scene.visible .final-message{opacity:1;transform:translateY(0)}
+.final-scene.visible .forever{animation:closingGlow 4s ease-in-out infinite alternate}
+@keyframes closingGlow{from{text-shadow:0 2px 9px #26170c,0 0 7px #fff7}to{text-shadow:0 2px 9px #26170c,0 0 23px #fff,0 0 34px #e5c88e}}
+@media(prefers-reduced-motion:reduce){.cover.opening .envelope-flap,.cover.opening .envelope-card,.cover.opening,.love-story.visible h2,.couple-title:after,.final-scene.visible .forever{animation:none!important}.final-scene .final-message{opacity:1;transform:none}}
 </style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
-<section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><button id="open" aria-label="Tap envelope to open invitation"></button></section>
+<section id="cover" class="cover" aria-label="Open your wedding invitation"><img src="scene-1.webp" alt="Hagar and Ahmed wedding envelope with red wax seal"><div class="envelope-card" aria-hidden="true">Hagar &amp; Ahmed<br>19 · 11 · 2026</div><div class="envelope-flap" aria-hidden="true"></div><button id="open" aria-label="Tap envelope to open invitation"></button></section>
 <div id="invitation" class="hidden">
 <section class="scene reveal"><img src="scene-2.webp" alt="We're getting married: Hagar and Ahmed, The Citadel of Saladin, Cairo, November 19 2026 at 6 PM"></section>
 <section class="quran fade"><h2>IN THE NAME OF ALLAH</h2><div class="verse" lang="ar">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ ﴾</div><p>“And He placed between you affection and mercy.”</p><small>SURAH AR-RUM · 30:21</small></section>
 <section class="scene fade"><img loading="lazy" src="scene-3.webp" alt="Our love story, from childhood to forever"></section>
-<section class="scene fade"><img loading="lazy" src="scene-4.webp" alt="The Details — click here"><button class="hotspot" id="detailsButton" aria-label="Show wedding details"></button></section>
+<section class="love-story fade"><div class="eyebrow">A LOVE WRITTEN IN THE STARS</div><h2>Our Love Story</h2><div class="story-line"></div><p>Every beautiful story has a beginning. Ours leads to forever.</p><p>Two hearts, one promise, a lifetime of love.</p><div class="story-line"></div><div class="eyebrow">HAGAR &amp; AHMED</div></section>\n<section class="scene fade"><img loading="lazy" src="scene-4.webp" alt="The Details — click here"><button class="hotspot" id="detailsButton" aria-label="Show wedding details"></button></section>
 <section id="wedding-details" class="details fade"><div class="couple-title">Hagar &amp; Ahmed</div><h2>Save the Date</h2><p>Thursday, November 19, 2026</p><div class="divider">✦</div><p>6:00 PM</p><p>The Citadel of Saladin<br>Cairo, Egypt</p><div class="countdown" id="countdown" aria-label="Countdown to the wedding"></div><a class="button" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=Citadel+of+Saladin+Cairo">GET DIRECTIONS</a><a class="button" id="calendarLink" href="#" download="Hagar-and-Ahmed-Wedding.ics">ADD TO CALENDAR</a></section>
 <section class="scene fade"><img loading="lazy" src="scene-5.webp" alt="Wedding date November 19, 2026 at 6 PM, The Citadel of Saladin Cairo"></section>
 <section class="scene fade video-scene" id="weddingVideoSection" aria-label="Romantic wedding video"><video id="weddingVideo" muted autoplay loop playsinline preload="none" aria-label="Romantic silent wedding video"></video></section><section class="scene fade final-scene"><img loading="lazy" src="scene-6.webp" alt="Hagar and Ahmed — forever begins here"><div class="final-message"><div class="forever">And so, our forever begins…</div><div class="signature">Hagar &amp; Ahmed — November 19, 2026</div></div></section>
@@ -163,7 +194,7 @@ function celebrateOpening(){
 }
 const cover=document.getElementById('cover'),inv=document.getElementById('invitation'),song=document.getElementById('song'),music=document.getElementById('musicButton');
 function setMusic(){music.textContent=song.paused?'♪':'♫';music.setAttribute('aria-label',song.paused?'Play music':'Pause music')}
-document.getElementById('open').addEventListener('click',async()=>{inv.classList.remove('hidden');cover.classList.add('opening');celebrateOpening();music.hidden=false;try{await song.play()}catch(e){}setMusic();setTimeout(()=>{cover.remove();window.scrollTo({top:0,behavior:'instant'});observe()},850)},{once:true});
+document.getElementById('open').addEventListener('click',async()=>{inv.classList.remove('hidden');cover.classList.add('opening');celebrateOpening();music.hidden=false;try{await song.play()}catch(e){}setMusic();setTimeout(()=>{cover.remove();window.scrollTo({top:0,behavior:'instant'});observe()},1850)},{once:true});
 music.addEventListener('click',async()=>{if(song.paused){try{await song.play()}catch(e){}}else song.pause();setMusic()});
 document.getElementById('detailsButton').addEventListener('click',()=>document.getElementById('wedding-details').scrollIntoView({behavior:'smooth'}));
 function observe(){const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.fade').forEach(el=>io.observe(el))}
