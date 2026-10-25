@@ -27,15 +27,18 @@
 @keyframes softGlow{from{text-shadow:0 2px 8px #23160f,0 0 12px #fff5}to{text-shadow:0 2px 8px #23160f,0 0 24px #fff,0 0 36px #fff8}}
 @media(prefers-reduced-motion:reduce){.scene.fade.visible img,.final-message .forever{animation:none!important}}
 .heart-video-scene{background:#1e1a17}.heart-video-scene video{display:block;width:100%;height:auto;max-height:85svh;object-fit:contain}@media(prefers-reduced-motion:reduce){.heart-video-scene video{animation:none}}
-/* Gentle Ken Burns zoom in/out on invitation photographs */
+/* Cinematic motion: stronger alternating zoom and gentle camera pans */
 .scene:not(.heart-video-scene){overflow:hidden}
-.scene:not(.heart-video-scene) > img{transform-origin:center center;will-change:transform}
-.scene.fade.visible:not(.heart-video-scene) > img{animation:gentlePhotoZoom 12s ease-in-out infinite alternate}
-.scene.reveal > img{animation:gentlePhotoZoom 12s ease-in-out infinite alternate}
-.cover > img{animation:gentleCoverZoom 14s ease-in-out infinite alternate}
-@keyframes gentlePhotoZoom{0%{transform:scale(1);opacity:1}100%{transform:scale(1.045);opacity:1}}
-@keyframes gentleCoverZoom{0%{transform:scale(1)}100%{transform:scale(1.04)}}
-@media(prefers-reduced-motion:reduce){.scene.fade.visible:not(.heart-video-scene) > img,.scene.reveal > img,.cover > img{animation:none!important;will-change:auto}}
+.scene:not(.heart-video-scene)>img{transform-origin:center center;backface-visibility:hidden}
+.scene.fade.visible:not(.heart-video-scene)>img,.scene.reveal>img{animation:photoCinematicA 9s ease-in-out infinite alternate;will-change:transform}
+.scene.fade.visible:nth-of-type(even):not(.heart-video-scene)>img{animation-name:photoCinematicB;animation-duration:11s}
+.scene.fade.visible:nth-of-type(3n):not(.heart-video-scene)>img{animation-name:photoCinematicC;animation-duration:10s}
+.cover>img{animation:coverCinematic 11s ease-in-out infinite alternate}
+@keyframes photoCinematicA{0%{transform:scale(1.015) translate(0,0)}100%{transform:scale(1.13) translate(-1.8%,1.2%)}}
+@keyframes photoCinematicB{0%{transform:scale(1.13) translate(1.8%,-1%)}100%{transform:scale(1.02) translate(-1%,1%)}}
+@keyframes photoCinematicC{0%{transform:scale(1.02) translate(-1.2%,1%)}100%{transform:scale(1.12) translate(1.5%,-1.5%)}}
+@keyframes coverCinematic{0%{transform:scale(1.01)}100%{transform:scale(1.09) translateY(-.8%)}}
+@media(prefers-reduced-motion:reduce){.scene.fade.visible:not(.heart-video-scene)>img,.scene.reveal>img,.cover>img{animation:none!important;will-change:auto}}
 </style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
