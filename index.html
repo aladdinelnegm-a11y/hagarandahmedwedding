@@ -148,6 +148,13 @@ body{background:#241e1b}
 @keyframes envelopeBackdrop{0%{filter:brightness(1);transform:scale(1)}100%{filter:brightness(.6) blur(4px);transform:scale(1.09)}}
 @keyframes envelopeFadeOut{to{opacity:0;transform:scale(1.035)}}
 @media(prefers-reduced-motion:reduce){.cover.opening:before,.cover.opening .envelope-card,.cover.opening>img,.cover.opening{animation:none!important}.cover.opening{opacity:0}}
+
+/* Reusable open / close envelope control */
+.cover.hidden{display:none}
+.envelope-toggle{position:fixed;z-index:25;top:calc(14px + env(safe-area-inset-top));right:max(14px,calc((100vw - 650px)/2 + 14px));border:1px solid #b99c75;border-radius:99px;background:#fff7e9ed;color:#6c5039;padding:11px 17px;font:14px Georgia,serif;letter-spacing:.035em;box-shadow:0 4px 15px #24170c30;cursor:pointer}
+.envelope-toggle[hidden]{display:none}
+.envelope-toggle:hover,.envelope-toggle:focus-visible{background:#fff;outline:2px solid #c4a06c;outline-offset:2px}
+@media(max-width:420px){.envelope-toggle{font-size:12px;padding:10px 13px}}
 </style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
@@ -162,7 +169,7 @@ body{background:#241e1b}
 <section class="scene fade"><img loading="lazy" src="scene-5.webp" alt="Wedding date November 19, 2026 at 6 PM, The Citadel of Saladin Cairo"></section>
 <section class="scene fade video-scene" id="weddingVideoSection" aria-label="Romantic wedding video"><video id="weddingVideo" muted autoplay loop playsinline preload="none" aria-label="Romantic silent wedding video"></video></section><section class="scene fade final-scene"><img loading="lazy" src="scene-6.webp" alt="Hagar and Ahmed — forever begins here"><div class="final-message"><div class="forever">And so, our forever begins…</div><div class="signature">Hagar &amp; Ahmed — November 19, 2026</div></div></section>
 </div></main>
-<audio id="song" src="music.mp3" loop preload="none"></audio><button class="music" id="musicButton" hidden aria-label="Pause music" title="Toggle music">♫</button>
+<button class="envelope-toggle" id="envelopeToggle" type="button" hidden aria-label="Close the invitation and return to envelope">✉ Close Envelope</button><audio id="song" src="music.mp3" loop preload="none"></audio><button class="music" id="musicButton" hidden aria-label="Pause music" title="Toggle music">♫</button>
 <script>
 
 function setupCalendar(){
@@ -233,7 +240,44 @@ function celebrateOpening(){
 }
 const cover=document.getElementById('cover'),inv=document.getElementById('invitation'),song=document.getElementById('song'),music=document.getElementById('musicButton');
 function setMusic(){music.textContent=song.paused?'♪':'♫';music.setAttribute('aria-label',song.paused?'Play music':'Pause music')}
-document.getElementById('open').addEventListener('click',async()=>{inv.classList.remove('hidden');cover.classList.add('opening');celebrateOpening();music.hidden=false;try{await song.play()}catch(e){}setMusic();setTimeout(()=>{cover.remove();window.scrollTo({top:0,behavior:'instant'});observe()},1850)},{once:true});
+const envelopeToggle=document.getElementById('envelopeToggle');
+let openingTimer=null,isOpening=false;
+document.getElementById('open').addEventListener('click',async()=>{
+ if(isOpening)return;
+ isOpening=true;
+ cover.classList.remove('hidden');
+ inv.classList.remove('hidden');
+ cover.classList.add('opening');
+ celebrateOpening();
+ music.hidden=false;
+ try{await song.play()}catch(e){}
+ setMusic();
+ clearTimeout(openingTimer);
+ openingTimer=setTimeout(()=>{
+  cover.classList.add('hidden');
+  cover.classList.remove('opening');
+  envelopeToggle.hidden=false;
+  envelopeToggle.textContent='✉ Close Envelope';
+  envelopeToggle.setAttribute('aria-label','Close the invitation and return to envelope');
+  window.scrollTo({top:0,behavior:'instant'});
+  observe();
+  isOpening=false;
+ },1850);
+});
+envelopeToggle.addEventListener('click',()=>{
+ if(isOpening)return;
+ const currentlyOpen=!inv.classList.contains('hidden');
+ if(currentlyOpen){
+  song.pause();setMusic();music.hidden=true;
+  document.getElementById('weddingVideo')?.pause();
+  inv.classList.add('hidden');
+  cover.classList.remove('hidden','opening');
+  window.scrollTo({top:0,behavior:'instant'});
+  envelopeToggle.hidden=true;
+ }else{
+  document.getElementById('open').click();
+ }
+});
 music.addEventListener('click',async()=>{if(song.paused){try{await song.play()}catch(e){}}else song.pause();setMusic()});
 document.getElementById('detailsButton').addEventListener('click',()=>document.getElementById('wedding-details').scrollIntoView({behavior:'smooth'}));
 function observe(){const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.fade').forEach(el=>io.observe(el))}
