@@ -134,6 +134,20 @@ body{background:#241e1b}
 .details h2{display:block;clear:both;width:100%;margin:0 auto 22px;line-height:1.2;font-size:clamp(34px,7vw,46px)}
 .details .couple-title:after{border-radius:3px}
 @media(max-width:420px){.details .couple-title{font-size:clamp(34px,9vw,42px);margin-bottom:15px}.details h2{font-size:clamp(32px,8vw,40px)}}
+
+/* New envelope opening: glowing wax seal, elegant split reveal, card slides forward */
+.cover .envelope-flap{display:none!important}
+.cover .envelope-card{z-index:3;top:31%;left:15%;width:70%;height:42%;border:1px solid #c5a77b;background:linear-gradient(145deg,#fff9ef,#f1dfc5);box-shadow:0 12px 35px #170f0955;opacity:0;transform:translateY(26%) scale(.85);border-radius:3px;font-size:clamp(24px,5vw,38px);line-height:1.6;letter-spacing:.035em}
+.cover:before{content:'';position:absolute;z-index:2;left:50%;top:51%;width:85px;height:85px;border-radius:50%;border:1px solid #f5d89a;box-shadow:0 0 0 8px #e7bd7640,0 0 38px #f5d28a;transform:translate(-50%,-50%) scale(.2);opacity:0;pointer-events:none}
+.cover.opening:before{animation:sealFlash .85s ease-out forwards}
+.cover.opening .envelope-card{animation:invitationCardReveal 1.55s .2s cubic-bezier(.2,.7,.2,1) forwards}
+.cover.opening>img{animation:envelopeBackdrop 1.6s ease-in-out forwards}
+.cover.opening{animation:envelopeFadeOut .5s 1.45s ease forwards}
+@keyframes sealFlash{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}35%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(2.5)}}
+@keyframes invitationCardReveal{0%{opacity:0;transform:translateY(26%) scale(.85)}30%{opacity:1}100%{opacity:1;transform:translateY(-16%) scale(1.04)}}
+@keyframes envelopeBackdrop{0%{filter:brightness(1);transform:scale(1)}100%{filter:brightness(.6) blur(4px);transform:scale(1.09)}}
+@keyframes envelopeFadeOut{to{opacity:0;transform:scale(1.035)}}
+@media(prefers-reduced-motion:reduce){.cover.opening:before,.cover.opening .envelope-card,.cover.opening>img,.cover.opening{animation:none!important}.cover.opening{opacity:0}}
 </style>
 </head>
 <body><div class="gold-confetti" id="goldConfetti" aria-hidden="true"></div><main class="wrap">
